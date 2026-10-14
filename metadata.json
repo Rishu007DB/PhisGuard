@@ -1,0 +1,6 @@
+{
+  "name": "PhishGuard: Phishing Investigation & Email Analyzer",
+  "description": "Rule-based explainable email security analyzer and phishing investigation platform for college cybersecurity hackathons.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
