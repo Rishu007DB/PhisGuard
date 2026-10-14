@@ -236,6 +236,19 @@ npm run build
 npm start
 ```
 
+### 🚢 Deploying (Render, Railway, Cloud Run)
+
+To deploy PhishGuard on standard Node.js cloud hosting platforms:
+
+- **Build Command:** `npm install && npm run build`
+- **Start Command:** `npm start`
+- **Environment Variables:**
+  - `NODE_ENV=production` (Enforces production mode and serves pre-built static assets from `dist/`)
+  - `PORT=3000` (Or platform-assigned port; server binds to `0.0.0.0`)
+  - `GEMINI_API_KEY` *(Optional)*: Set to enable Gemini AI explanations. If omitted, the entire rule-based detection engine, speedometer, highlighter, dashboard, and pitch deck remain 100% operational.
+  - `GEMINI_MODEL` *(Optional)*: Customize the model name (defaults to `gemini-3.8-flash`).
+- **Health Check Endpoint:** `GET /api/health` returns `{"status":"ok"}`.
+
 ---
 
 ## 🔒 Security & Privacy Compliance

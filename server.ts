@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
 
@@ -11,8 +12,14 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 
 app.use(express.json({ limit: '10mb' }));
+
+// Health check endpoint for container orchestrators (Render, Railway, Cloud Run)
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok' });
+});
 
 // Helper for Gemini AI client
 const getAiClient = () => {
@@ -70,7 +77,7 @@ Provide a concise, crystal-clear explanation (max 3 short paragraphs or 4 clear 
 Keep your tone professional, encouraging, and educational. Avoid heavy cybersecurity jargon without explaining it.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+      model: MODEL,
       contents: prompt,
     });
 
@@ -78,8 +85,9 @@ Keep your tone professional, encouraging, and educational. Avoid heavy cybersecu
     res.json({ explanation });
   } catch (error: any) {
     console.error('Gemini explanation error:', error);
-    res.status(500).json({
-      error: error?.message || 'Failed to generate AI explanation.',
+    // Return status 502 with friendly JSON message; never crash the server
+    res.status(502).json({
+      error: 'AI explanation service temporarily unavailable. Please verify your API key and model configuration.',
     });
   }
 });
@@ -96,14 +104,20 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.resolve(__dirname, 'dist')));
+    const distPath = path.resolve(__dirname, 'dist');
+    if (!fs.existsSync(distPath)) {
+      console.error(
+        "ERROR: 'dist/' directory does not exist in production mode. Please run 'npm run build' before starting the server."
+      );
+    }
+    app.use(express.static(distPath));
     app.get('*', (_req, res) => {
-      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+      res.sendFile(path.resolve(distPath, 'index.html'));
     });
   }
 
-  app.listen(PORT, () => {
-    console.log(`PhishGuard server running on port ${PORT} (prod=${isProd})`);
+  app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`PhishGuard server running on 0.0.0.0:${PORT} (prod=${isProd})`);
   });
 }
 

@@ -57,14 +57,16 @@ export default function App() {
   // Check backend AI availability on mount
   useEffect(() => {
     fetch('/api/ai/status')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Status endpoint failed');
+        return res.json();
+      })
       .then((data) => {
-        if (data && data.available) {
-          setAiAvailable(true);
-        }
+        setAiAvailable(Boolean(data && data.available));
       })
       .catch((err) => {
         console.log('AI status endpoint unavailable:', err);
+        setAiAvailable(false);
       });
   }, []);
 

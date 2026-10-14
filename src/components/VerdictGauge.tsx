@@ -207,13 +207,22 @@ export const VerdictGauge: React.FC<Props> = ({
 
         {/* Far Right Action Buttons */}
         <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto">
-          {aiAvailable && (
+          {aiAvailable ? (
             <button
               onClick={onExplainAi}
               className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wide bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-cyan-100 animate-pulse" />
               <span>Explain with AI</span>
+            </button>
+          ) : (
+            <button
+              disabled
+              title="AI explainer not configured. Set GEMINI_API_KEY to enable."
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-medium text-xs text-slate-500 bg-slate-900 border border-slate-800 cursor-not-allowed opacity-75"
+            >
+              <Sparkles className="w-4 h-4 text-slate-600" />
+              <span>AI explainer not configured</span>
             </button>
           )}
 
