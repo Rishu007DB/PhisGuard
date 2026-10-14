@@ -4,9 +4,12 @@
 [![React](https://img.shields.io/badge/Frontend-React_19-61dafb.svg)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind_CSS_v4-38bdf8.svg)](https://tailwindcss.com/)
 [![Express](https://img.shields.io/badge/Backend-Express_4-green.svg)](https://expressjs.com/)
-[![AI Engine](https://img.shields.io/badge/AI_Tutor-Gemini_3.8_Flash-orange.svg)](https://ai.google.dev/)
+[![Railway](https://img.shields.io/badge/Deployed_on-Railway-0B0D0E?logo=railway&logoColor=white)](https://phisguard-production.up.railway.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-phisguard--production.up.railway.app-success?style=flat&logo=google-chrome&logoColor=white)](https://phisguard-production.up.railway.app)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
+> 🌐 **Live Demo (Deployed on Railway):** **[https://phisguard-production.up.railway.app](https://phisguard-production.up.railway.app)**
+>
 > **A 100% in-browser, explainable email forensic investigation and phishing triage platform designed for college cybersecurity hackathons, university SOCs, and student security awareness.**
 
 ---
@@ -236,10 +239,14 @@ npm run build
 npm start
 ```
 
-### 🚢 Deploying (Render, Railway, Cloud Run)
+### 🚢 Deploying & Live Production (Railway)
 
-To deploy PhishGuard on standard Node.js cloud hosting platforms:
+The application is deployed and live on **Railway**:
 
+- 🌐 **Live Production App:** [https://phisguard-production.up.railway.app](https://phisguard-production.up.railway.app)
+- 🩺 **Live Health Probe:** [https://phisguard-production.up.railway.app/api/health](https://phisguard-production.up.railway.app/api/health)
+
+#### Configuration on Cloud Hosts (Render, Railway, Cloud Run):
 - **Build Command:** `npm install && npm run build`
 - **Start Command:** `npm start`
 - **Environment Variables:**
