@@ -27,6 +27,7 @@ interface Slide {
   subtitle: string;
   badge: string;
   content: React.ReactNode;
+  speakerNotes?: string;
 }
 
 export const PresentationDeck: React.FC = () => {
@@ -605,12 +606,6 @@ Thank you so much for your time. I would love to answer any questions and walk y
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentSlide]);
-
-  const copyNotes = () => {
-    navigator.clipboard.writeText(slide.speakerNotes);
-    setCopiedNotes(true);
-    setTimeout(() => setCopiedNotes(false), 2000);
-  };
 
   return (
     <div className={`space-y-6 ${isFullscreen ? 'fixed inset-0 z-50 bg-slate-950 p-6 overflow-y-auto' : ''}`}>
